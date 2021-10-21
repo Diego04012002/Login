@@ -1,7 +1,5 @@
 package dad.login.ui;
 
-import java.awt.GridBagConstraints;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,10 +12,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class LoginView extends VBox {
+	
 	private Label usuarioLabel;
 	private Label contraseñaLabel;
 	private TextField usuarioText;
-	private PasswordField contraseñaText;
+	private PasswordField passwordText;
 	private CheckBox Ldap;
 	private Button aceptarBoton;
 	private Button cancelarBoton;
@@ -31,8 +30,8 @@ public class LoginView extends VBox {
 		usuarioText= new TextField();
 		usuarioText.setPromptText("Nombre del usuario");
 		
-		contraseñaText= new PasswordField();
-		contraseñaText.setPromptText("Contraseña del usuario");
+		passwordText= new PasswordField();
+		passwordText.setPromptText("Contraseña del usuario");
 		
 		Ldap= new CheckBox("Usar LDAP");
 		
@@ -45,7 +44,7 @@ public class LoginView extends VBox {
 		usuarioContra.setHgap(8);
 		usuarioContra.setVgap(8);
 		usuarioContra.addRow(1, usuarioLabel, usuarioText);
-		usuarioContra.addRow(2, contraseñaLabel, contraseñaText);
+		usuarioContra.addRow(2, contraseñaLabel, passwordText);
 		
 		HBox botones= new HBox(8, aceptarBoton, cancelarBoton);
 		
@@ -68,8 +67,8 @@ public class LoginView extends VBox {
 		return usuarioText;
 	}
 
-	public PasswordField getContraseñaText() {
-		return contraseñaText;
+	public PasswordField getPasswordText() {
+		return passwordText;
 	}
 
 	public CheckBox getLdap() {
@@ -83,7 +82,5 @@ public class LoginView extends VBox {
 	public Button getCancelarBoton() {
 		return cancelarBoton;
 	}
-	
-	
 	
 }

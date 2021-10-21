@@ -10,20 +10,16 @@ import javafx.stage.Stage;
 
 public class LoginController {
 	
-	private boolean useLdap;
-	
 	private LoginView view= new LoginView();
 	private LoginModel model= new LoginModel();
 	
 	public LoginController() {
 		
-		view.getAceptarBoton().setOnAction(e-> {
-			try {
-				aceptarBotonAction(e);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
+		view.getUsuarioText().textProperty().bindBidirectional(model.usuarioProperty());
+		view.getPasswordText().textProperty().bindBidirectional(model.contraProperty());
+		view.getLdap().selectedProperty().bindBidirectional(model.ldapProperty());
+		
+		view.getAceptarBoton().setOnAction(e->aceptarBotonAction(e));	
 		
 		view.getCancelarBoton().setOnAction(e-> cancelarBotonAction(e));
 	}
@@ -41,29 +37,26 @@ public class LoginController {
 	    stage.close();
 	}
 
-	private void aceptarBotonAction(ActionEvent e) throws Exception {
-		model.setUsuario(view.getUsuarioText().getText());
-		model.setContra(view.getContraseñaText().getText());
-		if(view.getLdap().selectedProperty() != null) {
-			useLdap=true;
-		}else {
-			useLdap=false;
-		}
-		
-		AuthService auth = useLdap ? new LdapAuthService() : new FileAuthService();
-		
-		if(auth.login(model.getUsuario(), model.getContra())==true) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Inicio sesion");
-			alert.setHeaderText("Acceso permitido");
-			alert.setContentText("Las credenciales de acceso son válidos");
-			alert.showAndWait();
-		}else{
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Inicio sesion");
-			alert.setHeaderText("Acceso denegado");
-			alert.setContentText("El usuario y/o contraseña no son válidos");
-			alert.showAndWait();
+	private void aceptarBotonAction(ActionEvent e){
+		try {
+			
+			AuthService auth = model.isLdap() ? new LdapAuthService() : new FileAuthService();
+			
+			if(auth.login(model.getUsuario(), model.getContra())==true) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Inicio sesion");
+				alert.setHeaderText("Acceso permitido");
+				alert.setContentText("Las credenciales de acceso son válidos");
+				alert.showAndWait();
+			}else{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Inicio sesion");
+				alert.setHeaderText("Acceso denegado");
+				alert.setContentText("El usuario y/o contraseña no son válidos");
+				alert.showAndWait();
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 	
