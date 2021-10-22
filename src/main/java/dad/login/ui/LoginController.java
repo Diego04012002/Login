@@ -39,7 +39,7 @@ public class LoginController {
 
 	private void aceptarBotonAction(ActionEvent e){
 		try {
-			
+					
 			AuthService auth = model.isLdap() ? new LdapAuthService() : new FileAuthService();
 			
 			if(auth.login(model.getUsuario(), model.getContra())==true) {
@@ -57,6 +57,11 @@ public class LoginController {
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Inicio sesion");
+			alert.setHeaderText("Acceso denegado");
+			alert.setContentText("No se ha podido validar");
+			alert.showAndWait();
 		}
 	}
 	

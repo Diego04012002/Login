@@ -24,8 +24,8 @@ public class LoginView extends VBox {
 	public LoginView() {
 		super();
 		
-		usuarioLabel= new Label("Usuario: ");
-		contraseñaLabel= new Label("Contraseña: ");
+		usuarioLabel= new Label("Usuario:");
+		contraseñaLabel= new Label("Contraseña:");
 		
 		usuarioText= new TextField();
 		usuarioText.setPromptText("Nombre del usuario");
@@ -53,14 +53,6 @@ public class LoginView extends VBox {
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(usuarioContra, Ldap, botones);
 	
-	}
-
-	public Label getUsuarioLabel() {
-		return usuarioLabel;
-	}
-
-	public Label getContraseñaLabel() {
-		return contraseñaLabel;
 	}
 
 	public TextField getUsuarioText() {
